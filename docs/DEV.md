@@ -4,48 +4,70 @@
 
 <img src="https://github.com/scidsg/hushline/assets/28545431/3108811e-226e-4451-9793-c893da96184c" width="66%">
 
-<h2>Local Development</h2>
+### Development environment
 
-## Mac
+Hush Line is written in Python. To ensure code integrity and consistency, we use [Ruff](https://docs.astral.sh/ruff/) for linting and [mypy](https://www.mypy-lang.org/) for static type checking.
 
-| Tested Platform | OS Version | Browser | Status | Date | Notes |
-|-|-|-|-|-|-|
-| Macbook M2 | OSX 13.2.1 | Firefox 124.0.2 | ✅ | Apr. 2024 | |
-| Macbook M1 | OSX 14.4.1 | Firefox 124.0.2 | ✅ | Apr. 2024 | |
-| Macbook M1 | OSX 14.4.1 | Safari 17.4.1 | ☑️ | Apr. 2024 | App starts but a CSRF token mismatch blocks registration. |
+The recommended development environment is [Visual Studio Code](https://code.visualstudio.com/) with the following extensions:
 
-### Install Packages
-1. `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
-2. `eval "$(/opt/homebrew/bin/brew shellenv)"`
-3. `brew install python git git-lfs redis rust poetry`
+- [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+- [Ruff](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff)
+- [Mypy](https://marketplace.visualstudio.com/items?itemName=matangover.mypy)
 
-### Clone the Repo
-4. `git clone https://github.com/scidsg/hushline.git`
-5. `cd hushline`
-6. `/opt/homebrew/bin/python3 -m venv venv`
-7. `source venv/bin/activate`
-8. `poetry install`
-9. `source files/dev/env.sh`
-10. `sudo lsof -ti:5000 | xargs kill -9` _Optional_
-11. `poetry run flask db upgrade` _Optional_
-12. `poetry run make init-db run`
+You need Python, Poetry, and pipx. If you're on macOS, install these with [Homebrew](https://brew.sh/):
 
-## Windows
+```sh
+brew install python poetry pipx
+```
 
-| Tested Platform | Date |
-|-|-|
-|  |  |
+Using pipx, install Python packages required for linting and static type checking:
 
-### Linux
+```sh
+pipx install ruff
+pipx install mypy
+```
 
-| Tested Platform | Date |
-|-|-|
-|  |  |
+### Getting started
 
-<h2>Tests, Linters, and Formatters</h2>
+Clone the Hush Line code:
 
-## Testing Changes
+```sh
+git clone https://github.com/scidsg/hushline.git
+cd hushline
+```
 
-1. `poetry run pre-commit run --all-files --verbose`.
+Install Poetry dependencies:
 
-2. `poetry run make test`.
+```sh
+poetry install
+```
+
+Run the database migrations:
+
+```sh
+poetry run migrate
+```
+
+Run the app in debug mode:
+
+```sh
+poetry run make run
+```
+
+Run the tests:
+
+```sh
+poetry run make test
+```
+
+Run the linters:
+
+```sh
+poetry run make lint
+```
+
+Format the code:
+
+```sh
+poetry run make fix
+```
