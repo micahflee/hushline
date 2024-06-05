@@ -13,15 +13,12 @@ run: ## Run the app
 
 .PHONY: lint
 lint: ## Lint the code
-	isort --check . && \
-		black --check . && \
-		flake8 --config setup.cfg . && \
-		mypy --config-file pyproject.toml .
+	ruff check && \
+	mypy
 
 .PHONY: fmt
 fmt: ## Format the code
-	isort . && \
-		black .
+	ruff check --fix
 
 .PHONY: init-db
 init-db: ## Initialize the dev database
